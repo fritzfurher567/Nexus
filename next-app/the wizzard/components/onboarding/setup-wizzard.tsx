@@ -99,7 +99,7 @@ export function OnboardingWizard() {
       <div className="flex flex-col border-b border-border bg-card p-6 md:border-b-0 md:border-r">
         <div className="mb-1 flex items-center gap-2.5 font-bold">
           <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary text-sm font-extrabold text-primary-foreground">
-            N
+            NX
           </span>
           Nexus
         </div>

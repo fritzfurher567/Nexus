@@ -5,8 +5,12 @@ import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 
 const BOT_CLIENT_ID = process.env.NEXT_PUBLIC_DISCORD_BOT_CLIENT_ID;
+// Set NEXT_PUBLIC_SITE_URL in .env.local (e.g. https://nexus-allinone.vercel.app)
+// — using an env var instead of window.location.origin avoids an
+// SSR/client mismatch on first render.
+const REDIRECT_URI = `${process.env.NEXT_PUBLIC_SITE_URL}/dashboard/bot-added`;
 const inviteUrl = BOT_CLIENT_ID
-  ? `https://discord.com/oauth2/authorize?client_id=${BOT_CLIENT_ID}&scope=bot+applications.commands&permissions=8`
+  ? `https://discord.com/oauth2/authorize?client_id=${BOT_CLIENT_ID}&scope=bot+applications.commands&permissions=8&response_type=code&redirect_uri=${encodeURIComponent(REDIRECT_URI)}`
   : "#";
 
 export function ServerSelector({ compact = false }: { compact?: boolean }) {

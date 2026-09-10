@@ -75,9 +75,9 @@ function FooterColumn({ title, links }: { title: string; links: string[] }) {
         {links.map((link) => (
           <a
             key={link}
-            href={link === "Discord" || link === "Support" ? "https://discord.gg/qe9ygtjXqM" : "#"}
-            target={link === "Discord" || link === "Support" ? "_blank" : undefined}
-            rel={link === "Discord" || link === "Support" ? "noreferrer" : undefined}
+            href={link === "Discord" ? "https://discord.gg/kXv25y3GcQ" : "#"}
+            target={link === "Discord" ? "_blank" : undefined}
+            rel={link === "Discord" ? "noreferrer" : undefined}
             className="hover:text-foreground"
           >
             {link}

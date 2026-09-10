@@ -6,6 +6,10 @@ import { AllCommandsTrigger, ToolsTrigger, UpdatesPanel } from "@/components/das
 import { OnboardingGuard } from "@/components/onboarding-guard";
 import { ServerSelector } from "@/components/server-selector";
 import { ModuleSettings } from "@/components/module-settings";
+import { ServersPanel } from "@/components/servers-panel";
+import { DataStoragePanel } from "@/components/data-storage-panel";
+import { StatusPanel } from "@/components/status-panel";
+import { ErrorLogsPanel } from "@/components/error-logs-panel";
 
 const BOT_CLIENT_ID = process.env.NEXT_PUBLIC_DISCORD_BOT_CLIENT_ID;
 
@@ -13,7 +17,6 @@ const sidebarItems = [
   { label: "Dashboard", href: "/dashboard" },
   { label: "Modules", href: "/dashboard#modules" },
   { label: "Premium", href: "/dashboard#premium" },
-  { label: "Market", href: "/dashboard#market" },
   { label: "BotPanel", href: "/dashboard#botpanel" },
   { label: "Free Premium", href: "/dashboard#free-premium" },
 ];
@@ -24,9 +27,7 @@ const settingsItems = [
   { label: "Data Storage", href: "/dashboard#data-storage" },
   { label: "Servers", href: "/dashboard#servers" },
   { label: "Status", href: "/dashboard#status" },
-  { label: "Collab", href: "/dashboard#collab" },
   { label: "Error Logs", href: "/dashboard#error-logs" },
-  { label: "Active Developer Badge", href: "/dashboard#developer-badge" },
 ];
 
 const builderCards = [
@@ -87,7 +88,7 @@ export default async function DashboardPage() {
                 }`}
               >
                 <span className="flex h-4 w-4 items-center justify-center text-[10px] text-white/80">
-                  {index === 0 ? "⌂" : index === 1 ? "▣" : index === 2 ? "✦" : index === 3 ? "◫" : index === 4 ? "◭" : "✦"}
+                  {index === 0 ? "⌂" : index === 1 ? "▣" : index === 2 ? "✦" : index === 3 ? "◭" : "✦"}
                 </span>
                 <span>{item.label}</span>
                 {item.label === "Free Premium" && (
@@ -107,7 +108,7 @@ export default async function DashboardPage() {
                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-white/70 hover:bg-white/5 hover:text-white"
               >
                 <span className="flex h-4 w-4 items-center justify-center text-[10px] text-white/80">
-                  {item.label === "Settings" ? "⚙" : item.label === "Invite" ? "✦" : item.label === "Data Storage" ? "▣" : item.label === "Servers" ? "▤" : item.label === "Status" ? "◔" : item.label === "Collab" ? "◍" : item.label === "Error Logs" ? "!" : "◌"}
+                  {item.label === "Settings" ? "⚙" : item.label === "Invite" ? "✦" : item.label === "Data Storage" ? "▣" : item.label === "Servers" ? "▤" : item.label === "Status" ? "◔" : "!"}
                 </span>
                 <span>{item.label}</span>
               </Link>
@@ -232,6 +233,10 @@ export default async function DashboardPage() {
             </section>
 
             <ModuleSettings />
+            <ServersPanel />
+            <DataStoragePanel />
+            <StatusPanel />
+            <ErrorLogsPanel />
 
             <div className="mt-10">
               <div className="mb-6 text-[11px] uppercase tracking-[0.2em] text-white/50">Modules</div>

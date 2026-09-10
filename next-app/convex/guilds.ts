@@ -1,4 +1,4 @@
-import { internalMutation, query } from "./_generated/server";
+import { internalMutation, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
 const guildArgs = {
@@ -62,5 +62,33 @@ export const list = query({
       .query("guilds")
       .withIndex("by_owner_id", (q) => q.eq("ownerId", user.discordUserId))
       .collect();
+  },
+});
+
+export const requestLeave = mutation({
+  args: { guildId: v.string() },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Not signed in");
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+    const guild = await ctx.db
+      .query("guilds")
+      .withIndex("by_guild_id", (q) => q.eq("guildId", args.guildId))
+      .unique();
+    if (!guild) throw new Error("Server not found");
+    if (!user?.discordUserId || guild.ownerId !== user.discordUserId) {
+      throw new Error("You can only remove the bot from servers you own");
+    }
+    await ctx.db.insert("botActions", {
+      userId: identity.subject,
+      serverId: args.guildId,
+      type: "leave_guild",
+      payload: {},
+      status: "pending",
+      createdAt: Date.now(),
+    });
   },
 });

@@ -9,6 +9,9 @@
  */
 
 import type * as botActions from "../botActions.js";
+import type * as botStatus from "../botStatus.js";
+import type * as customVariables from "../customVariables.js";
+import type * as errorLogs from "../errorLogs.js";
 import type * as guildSettings from "../guildSettings.js";
 import type * as guilds from "../guilds.js";
 import type * as http from "../http.js";
@@ -23,6 +26,9 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   botActions: typeof botActions;
+  botStatus: typeof botStatus;
+  customVariables: typeof customVariables;
+  errorLogs: typeof errorLogs;
   guildSettings: typeof guildSettings;
   guilds: typeof guilds;
   http: typeof http;

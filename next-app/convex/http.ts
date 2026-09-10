@@ -32,6 +32,17 @@ http.route({
 });
 
 http.route({
+  path: "/bot/guilds/remove",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    if (!isBotAuthorized(request)) return new Response("Unauthorized", { status: 401 });
+    const body = await request.json();
+    await ctx.runMutation(internal.guilds.remove, { guildId: body.guildId });
+    return new Response(null, { status: 204 });
+  }),
+});
+
+http.route({
   path: "/bot/actions/claim",
   method: "POST",
   handler: httpAction(async (ctx, request) => {
@@ -87,6 +98,27 @@ http.route({
     }
 
     return new Response(null, { status: 200 });
+  }),
+});
+
+http.route({
+  path: "/bot/status",
+  method: "GET",
+  handler: httpAction(async (ctx, request) => {
+    if (!isBotAuthorized(request)) return new Response("Unauthorized", { status: 401 });
+    const status = await ctx.runQuery(internal.botStatus.getForBot, {});
+    return Response.json(status);
+  }),
+});
+
+http.route({
+  path: "/bot/errors/log",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    if (!isBotAuthorized(request)) return new Response("Unauthorized", { status: 401 });
+    const body = await request.json();
+    await ctx.runMutation(internal.errorLogs.log, body);
+    return new Response(null, { status: 204 });
   }),
 });
 

@@ -12,11 +12,11 @@ type Row = {
 
 const ROWS: Row[] = [
   { feature: "Auto-moderation", us: true, mee6: true, dyno: true, carlbot: true, ghostbot: true, multex: true },
-  { feature: "Ticket system with categories", us: true, mee6: false, dyno: false, carlbot: true, ghostbot: true, multex: false },
-  { feature: "Leveling & XP", us: true, mee6: true, dyno: false, carlbot: false, ghostbot: false, multex: false },
+  { feature: "Ticket system with categories", us: true, mee6: true, dyno: true, carlbot: true, ghostbot: true, multex: false },
+  { feature: "Leveling & XP", us: true, mee6: true, dyno: false, carlbot: true, ghostbot: true, multex: false },
   { feature: "Reaction roles", us: true, mee6: true, dyno: true, carlbot: true, ghostbot: true, multex: false },
-  { feature: "Music & fun commands", us: true, mee6: false, dyno: true, carlbot: false, ghostbot: false, multex: false },
-  { feature: "Web dashboard included free", us: true, mee6: false, dyno: true, carlbot: true, ghostbot: true, multex: true },
+  { feature: "Music & fun commands", us: true, mee6: true, dyno: false, carlbot: true, ghostbot: true, multex: false },
+  { feature: "Web dashboard included free", us: true, mee6: true, dyno: true, carlbot: true, ghostbot: true, multex: true },
   { feature: "Roblox rank sync & restriction roles", us: true, mee6: false, dyno: false, carlbot: false, ghostbot: false, multex: true },
   { feature: "200+ commands out of the box", us: true, mee6: false, dyno: false, carlbot: false, ghostbot: false, multex: false },
 ];

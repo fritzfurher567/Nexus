@@ -26,6 +26,28 @@ export default defineSchema({
     enabledModules: v.array(v.string()),
     updatedAt: v.number(),
   }).index("by_guild_id", ["guildId"]),
+  customVariables: defineTable({
+    guildId: v.string(),
+    name: v.string(),
+    reference: v.string(),
+    variableType: v.string(),
+    defaultValue: v.optional(v.string()),
+    scope: v.string(),
+    createdAt: v.number(),
+  }).index("by_guild_id", ["guildId"]),
+  botStatus: defineTable({
+    mode: v.string(),
+    activityType: v.string(),
+    texts: v.array(v.string()),
+    updatedAt: v.number(),
+  }),
+  errorLogs: defineTable({
+    timestamp: v.number(),
+    action: v.string(),
+    errorMessage: v.string(),
+    module: v.string(),
+    guildId: v.optional(v.string()),
+  }).index("by_timestamp", ["timestamp"]),
   updates: defineTable({
     title: v.string(),
     content: v.string(),
