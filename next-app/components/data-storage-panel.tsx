@@ -144,7 +144,7 @@ export function DataStoragePanel() {
           <div>
             <label className="text-sm font-medium text-white/80">Scope</label>
             <p className="text-xs text-white/50">
-              Whether this variable should have different values based on the server/user/channel it's used in.
+              Whether this variable should have different values based on the server, user, or channel it&apos;s used in.
             </p>
             <select
               value={scope}

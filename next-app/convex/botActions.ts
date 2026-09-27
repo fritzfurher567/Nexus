@@ -18,6 +18,13 @@ export const create = mutation({
     if (!user || user.selectedServerId !== args.serverId) {
       throw new Error("Select this server before creating an action");
     }
+    const guild = await ctx.db
+      .query("guilds")
+      .withIndex("by_guild_id", (q) => q.eq("guildId", args.serverId))
+      .unique();
+    if (!user.discordUserId || guild?.ownerId !== user.discordUserId) {
+      throw new Error("You can only control Discord servers you own");
+    }
 
     return await ctx.db.insert("botActions", {
       userId: identity.subject,

@@ -1,30 +1,29 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 
 export function StatusPanel() {
   const status = useQuery(api.botStatus.get);
+  if (status === undefined) return null;
+  return <StatusForm key={JSON.stringify(status)} initialStatus={status} />;
+}
+
+function StatusForm({ initialStatus }: { initialStatus: { mode: string; activityType: string; texts: string[] } }) {
   const save = useMutation(api.botStatus.save);
-
-  const [mode, setMode] = useState("fixed");
-  const [activityType, setActivityType] = useState("watching");
-  const [texts, setTexts] = useState<string[]>([""]);
+  const [mode, setMode] = useState(initialStatus.mode);
+  const [activityType, setActivityType] = useState(initialStatus.activityType);
+  const [texts, setTexts] = useState<string[]>(initialStatus.texts.length ? initialStatus.texts : [""]);
   const [saving, setSaving] = useState(false);
-
-  useEffect(() => {
-    if (status) {
-      setMode(status.mode);
-      setActivityType(status.activityType);
-      setTexts(status.texts.length ? status.texts : [""]);
-    }
-  }, [status]);
 
   async function handleSave() {
     setSaving(true);
-    await save({ mode, activityType, texts: texts.filter((t) => t.trim() !== "") });
-    setSaving(false);
+    try {
+      await save({ mode, activityType, texts: texts.filter((t) => t.trim() !== "") });
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (

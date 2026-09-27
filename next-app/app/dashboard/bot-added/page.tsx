@@ -1,21 +1,31 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 
 export default function BotAddedPage() {
+  return (
+    <Suspense fallback={<BotAddedFallback />}>
+      <BotAddedContent />
+    </Suspense>
+  );
+}
+
+function BotAddedFallback() {
+  return <main className="flex min-h-screen items-center justify-center bg-background px-6 text-center text-foreground"><p className="text-muted-foreground">Preparing your server...</p></main>;
+}
+
+function BotAddedContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const selectServer = useMutation(api.users.selectServer);
-  const [status, setStatus] = useState<"working" | "error">("working");
+  const [requestFailed, setRequestFailed] = useState(false);
+  const guildId = searchParams.get("guild_id");
 
   useEffect(() => {
-    const guildId = searchParams.get("guild_id");
-
     if (!guildId) {
-      setStatus("error");
       return;
     }
 
@@ -29,14 +39,14 @@ export default function BotAddedPage() {
         router.replace("/dashboard");
       } catch (err) {
         console.error("Failed to auto-select the new server:", err);
-        setStatus("error");
+        setRequestFailed(true);
       }
     })();
-  }, [searchParams, selectServer, router]);
+  }, [guildId, selectServer, router]);
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-background px-6 text-center text-foreground">
-      {status === "working" ? (
+      {guildId && !requestFailed ? (
         <p className="text-muted-foreground">Setting up your server...</p>
       ) : (
         <div>

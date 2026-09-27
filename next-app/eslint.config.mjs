@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Convex writes these files; linting their generated disable headers is noisy.
+    "convex/_generated/**",
   ]),
 ]);
 

@@ -25,7 +25,7 @@ export function ErrorLogsPanel() {
           </div>
           <div>
             <h2 className="text-2xl font-semibold text-white">Error Logs</h2>
-            <p className="text-sm text-white/60">Your bot's API error logs</p>
+            <p className="text-sm text-white/60">Your bot&apos;s API error logs</p>
           </div>
         </div>
       </div>

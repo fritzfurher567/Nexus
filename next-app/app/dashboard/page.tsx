@@ -10,6 +10,7 @@ import { ServersPanel } from "@/components/servers-panel";
 import { DataStoragePanel } from "@/components/data-storage-panel";
 import { StatusPanel } from "@/components/status-panel";
 import { ErrorLogsPanel } from "@/components/error-logs-panel";
+import { DashboardAreas } from "@/components/dashboard-areas";
 
 const BOT_CLIENT_ID = process.env.NEXT_PUBLIC_DISCORD_BOT_CLIENT_ID;
 
@@ -233,6 +234,7 @@ export default async function DashboardPage() {
             </section>
 
             <ModuleSettings />
+            <DashboardAreas />
             <ServersPanel />
             <DataStoragePanel />
             <StatusPanel />
@@ -259,7 +261,7 @@ export default async function DashboardPage() {
               ))}
             </div>
 
-            <div className="mt-8 rounded-xl border border-white/10 bg-[#17191c] p-3">
+            <div id="invite" className="mt-8 rounded-xl border border-white/10 bg-[#17191c] p-3">
               <div className="flex items-center justify-between gap-3">
                 <div className="text-sm font-medium text-white/90">Invite the bot to your server</div>
                 <a
